@@ -24,7 +24,8 @@ class spotifyWebApi {
         var url = getLoginURL([
             'playlist-modify-public',
             'playlist-modify-private',
-            'playlist-read-collaborative'
+            'playlist-read-collaborative',
+            'user-library-read'
         ]);
 
         window.location.href = url;
@@ -46,6 +47,44 @@ class spotifyWebApi {
                 console.log("SUCCESS: " + response);
             }
         });
-        console.log(request);
+    }
+
+    createPlaylist (userId, playlistName, playlistDescription = "", isPlaylistPublic = true, isPlaylistCollaborative = false){
+        var url = 'https://api.spotify.com/v1/users/' + userId + '/playlists';
+        var jsonData = JSON.stringify({
+            name: playlistName,
+            public: isPlaylistPublic,
+            collaborative: isPlaylistCollaborative,
+            description: playlistDescription
+        });
+        var request = $.ajax({
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + this.accessToken,
+                "Content-Type": "application/json"
+            },
+            url: url,
+            dataType: "json",
+            data: jsonData,
+            success: function (response) {
+                console.log("SUCCESS: " + response);
+            }
+        });
+    }
+
+    getLikedMusic (numberOfSongs = 20, offsetFromMostRecent = 0, countryCode = null) {
+        var url = 'https://api.spotify.com/v1/me/tracks?limit=' + numberOfSongs 
+            + '&offset=' + offsetFromMostRecent 
+            + (countryCode ? '&market=' + countryCode : '');
+        var request = $.ajax({
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + this.accessToken
+            },
+            url: url,
+            success: function(response) {
+                console.log("SUCCESS: " + response);
+            }
+        })
     }
 }
