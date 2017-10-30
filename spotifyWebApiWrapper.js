@@ -1,7 +1,7 @@
 class spotifyWebApi {
     constructor (token){
         if (token == null) {
-            this.login();
+            //handle login
         } else {
             this.accessToken = token;
         }
