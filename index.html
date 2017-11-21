@@ -14,7 +14,7 @@
 </head>
 <body>
     <div id="bootstrapCssCheck" class="d-none"></div><script>!$('#bootstrapCssCheck').is(':visible') || $('<link href="./Libraries/Bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"><\/link>').appendTo('head');</script>    
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
         <a class="navbar-brand" href="#">PlaylistAdder</a>
         <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -34,8 +34,16 @@
         </div>
     </nav>
     <main role="main" class="container-fluid bg-light">
-        <div class="d-flex justify-content-center">
-            <button type="button" id="loginButton" class="btn btn-outline-primary btn-sm">Login</button>
+        <div class="not-logged-in-view card">
+            <div class="card-body">
+                <p class="card-text">Please login :)</p>
+                <button type="button" id="loginButton" class="btn btn-outline-primary btn-sm">Login</button>
+            </div>
+        </div>
+        <div class="home-view card">
+            <div class="card-body">
+                <p class="card-text">Logged in! :)!</p>
+            </div>
         </div>
     </main>
 </body>
