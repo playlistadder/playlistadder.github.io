@@ -1,5 +1,16 @@
 
 var spotify = null;
+var urlHash = {};
+
+function parseURLHash () {
+    var search = location.hash.substring(1);
+    urlHash = search?JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g,'":"') + '"}',
+                     function(key, value) { return key===""?value:decodeURIComponent(value) }):{}
+}
+
+function showCurrentView () {
+    urlHash['access_token'] ? $('#home').show() : $('#not-logged-in').show();
+}
 
 function createRecentlyLikedPlaylist (){
     if (spotify !== null) {
@@ -28,5 +39,7 @@ function createNewPlaylistAndAddMusic (playlistName, spotifyTrackUris){
 
 $(document).ready(function () {
     spotify = new spotifyWebApi();
+    parseURLHash();
+    showCurrentView();
     $('#loginButton').click(spotify.login);
 });
