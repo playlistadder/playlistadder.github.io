@@ -1,11 +1,8 @@
 
 var spotify = null;
-var urlHash = {};
 
-function parseURLHash () {
-    var search = location.hash.substring(1);
-    urlHash = search?JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g,'":"') + '"}',
-                     function(key, value) { return key===""?value:decodeURIComponent(value) }):{}
+function getCurrentViewFromHash (){
+    return location.hash.substring(1);
 }
 
 function getCookie(name) {
@@ -15,7 +12,15 @@ function getCookie(name) {
 
 function showView(view) {
     $('main .view').hide();
-    $('#' + view).show();
+    $('#' + view + '.view').show();
+}
+
+function showCurrentView() {
+    showView(getCurrentViewFromHash());
+}
+
+function showClickedView() {
+    showView(this.id);
 }
 
 function createRecentlyLikedPlaylist (){
@@ -48,6 +53,7 @@ $(document).ready(function () {
     if (authToken){
         spotify = new spotifyWebApi(authToken);
         showView('home');
+        $('.nav-item').click(showClickedView);
     } else {
         spotify = new spotifyWebApi();
         showView('not-logged-in');
