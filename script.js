@@ -8,8 +8,14 @@ function parseURLHash () {
                      function(key, value) { return key===""?value:decodeURIComponent(value) }):{}
 }
 
-function showCurrentView () {
-    urlHash['access_token'] ? $('#home').show() : $('#not-logged-in').show();
+function getCookie(name) {
+    var cookiestring = RegExp(""+name+"[^;]+").exec(document.cookie);
+    return decodeURIComponent(!!cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
+}
+
+function showView(view) {
+    $('main .view').hide();
+    $('#' + view).show();
 }
 
 function createRecentlyLikedPlaylist (){
@@ -38,8 +44,13 @@ function createNewPlaylistAndAddMusic (playlistName, spotifyTrackUris){
 }
 
 $(document).ready(function () {
-    spotify = new spotifyWebApi();
-    parseURLHash();
-    showCurrentView();
-    $('#loginButton').click(spotify.login);
+    var authToken = getCookie('authToken');
+    if (authToken){
+        spotify = new spotifyWebApi(authToken);
+        showView('home');
+    } else {
+        spotify = new spotifyWebApi();
+        showView('not-logged-in');
+        $('#loginButton').click(spotify.login);
+    }
 });
