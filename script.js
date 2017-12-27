@@ -21,6 +21,9 @@ function showCurrentView() {
 
 function showClickedView() {
     showView(this.id);
+    if ($('#hamburgerButton').is(':visible')){
+        $('.navbar-toggler-icon').click();
+    }
 }
 
 function createRecentlyLikedPlaylist (){
