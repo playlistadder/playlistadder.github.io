@@ -16,19 +16,19 @@
     <div id="bootstrapCssCheck" class="d-none"></div><script>!$('#bootstrapCssCheck').is(':visible') || $('<link href="./Libraries/Bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"><\/link>').appendTo('head');</script>
     <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
         <a class="navbar-brand" href="#">PlaylistAdder</a>
-        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button id="hamburgerButton" class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav mr-auto mt-2 mt-md-0">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+                <li id="home" class="nav-item active">
+                    <a class="nav-link" href="#home">Home<span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Playlist Adder</a>
+                <li id="playlistAdder" class="nav-item active">
+                    <a class="nav-link" href="#playlistAdder">Playlist Adder</a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Playlist Creater</a>
+                <li id="playlistCreater" class="nav-item active">
+                    <a class="nav-link" href="#playlistCreater">Playlist Creater</a>
                 </li>
             </ul>
         </div>
@@ -46,6 +46,20 @@
             <div class="card">
                 <div class="card-body">
                     <p class="card-text">Logged in! :)!</p>
+                </div>
+            </div>
+        </div>
+        <div id="playlistAdder" class="view">
+            <div class="card">
+                <div class="card-body">
+
+                </div>
+            </div>
+        </div>
+        <div id="playlistCreater" class="view">
+            <div id="mostRecentlyLiked" class="card">
+                <div class="card-body">
+
                 </div>
             </div>
         </div>

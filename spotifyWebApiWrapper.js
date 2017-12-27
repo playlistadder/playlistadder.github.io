@@ -11,7 +11,7 @@ class spotifyWebApi {
 
     login() {
         var CLIENT_ID = '441a4822a4e64231b66d281c7d20810b';
-        var REDIRECT_URI = 'https://playlistadder.github.io/';
+        var REDIRECT_URI = 'https://playlistadder.github.io/callback/';
         function getLoginURL(scopes) {
             console.log('https://accounts.spotify.com/authorize?client_id=' + CLIENT_ID +
             '&redirect_uri=' + encodeURIComponent(REDIRECT_URI) +

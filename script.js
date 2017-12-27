@@ -1,15 +1,29 @@
 
 var spotify = null;
-var urlHash = {};
 
-function parseURLHash () {
-    var search = location.hash.substring(1);
-    urlHash = search?JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g,'":"') + '"}',
-                     function(key, value) { return key===""?value:decodeURIComponent(value) }):{}
+function getCurrentViewFromHash (){
+    return location.hash.substring(1);
 }
 
-function showCurrentView () {
-    urlHash['access_token'] ? $('#home').show() : $('#not-logged-in').show();
+function getCookie(name) {
+    var cookiestring = RegExp(""+name+"[^;]+").exec(document.cookie);
+    return decodeURIComponent(!!cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
+}
+
+function showView(view) {
+    $('main .view').hide();
+    $('#' + view + '.view').show();
+}
+
+function showCurrentView() {
+    showView(getCurrentViewFromHash());
+}
+
+function showClickedView() {
+    showView(this.id);
+    if ($('#hamburgerButton').is(':visible')){
+        $('.navbar-toggler-icon').click();
+    }
 }
 
 function createRecentlyLikedPlaylist (){
@@ -38,8 +52,14 @@ function createNewPlaylistAndAddMusic (playlistName, spotifyTrackUris){
 }
 
 $(document).ready(function () {
-    spotify = new spotifyWebApi();
-    parseURLHash();
-    showCurrentView();
-    $('#loginButton').click(spotify.login);
+    var authToken = getCookie('authToken');
+    if (authToken){
+        spotify = new spotifyWebApi(authToken);
+        showView('home');
+        $('.nav-item').click(showClickedView);
+    } else {
+        spotify = new spotifyWebApi();
+        showView('not-logged-in');
+        $('#loginButton').click(spotify.login);
+    }
 });
