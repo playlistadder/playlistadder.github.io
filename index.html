@@ -14,7 +14,7 @@
 </head>
 <body>
     <div id="bootstrapCssCheck" class="d-none"></div><script>!$('#bootstrapCssCheck').is(':visible') || $('<link href="./Libraries/Bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"><\/link>').appendTo('head');</script>
-    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md fixed-top navbar-light bg-primary">
         <a class="navbar-brand" href="#">PlaylistAdder</a>
         <button id="hamburgerButton" class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -33,9 +33,9 @@
             </ul>
         </div>
     </nav>
-    <main role="main" class="container-fluid bg-light">
+    <main role="main" class="container-fluid bg-secondary">
         <div id="not-logged-in" class="view">
-            <div class="card">
+            <div class="card bg-primary">
                 <div class="card-body">
                     <p class="card-text">Please login :)</p>
                     <button type="button" id="loginButton" class="btn btn-outline-primary btn-sm">Login</button>
@@ -43,23 +43,23 @@
             </div>
         </div>
         <div id="home" class="view">
-            <div class="card">
+            <div class="card bg-primary">
                 <div class="card-body">
                     <p class="card-text">Logged in! :)!</p>
                 </div>
             </div>
         </div>
         <div id="playlistAdder" class="view">
-            <div id="recentlyLiked" class="card">
+            <div class="card bg-primary">
                 <div class="card-body">
-                    <button type="button" id="createRecentlyLikedPlaylist" class="playlist-btn btn btn-outline-primary btn-sm">Create Recently Liked Playlist</button>
+                    
                 </div>
             </div>
         </div>
         <div id="playlistCreater" class="view">
-            <div id="mostRecentlyLiked" class="card">
+            <div id="recentlyLiked" class="card bg-primary">
                 <div class="card-body">
-
+                    <button type="button" id="createRecentlyLikedPlaylist" class="playlist-btn btn btn-outline-primary btn-sm">Create Recently Liked Playlist</button>
                 </div>
             </div>
         </div>
