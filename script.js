@@ -19,6 +19,10 @@ function showCurrentView() {
     showView(getCurrentViewFromHash());
 }
 
+function runId() {
+    eval(this.id+'();');
+}
+
 function showClickedView() {
     showView(this.id);
     if ($('#hamburgerButton').is(':visible')){
@@ -62,4 +66,5 @@ $(document).ready(function () {
         showView('not-logged-in');
         $('#loginButton').click(spotify.login);
     }
+    $('.playlist-btn').click(runId);
 });
