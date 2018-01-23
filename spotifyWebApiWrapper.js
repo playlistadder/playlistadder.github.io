@@ -5,10 +5,12 @@ class spotifyWebApi {
         this.redirectUri = redirectUri;
         if (token != null) {
             this.accessToken = token;
+            this.getLogedInUserInfo().done(function (data) {self.userInfo = data});
         }
     }
 
     login(listOfPermissions = []) {
+        var self = this;
         var permissions = ['playlist-read-private', 'playlist-read-collaborative', 'playlist-modify-public', 'playlist-modify-private', 'streaming', 'ugc-image-upload', 'user-follow-modify', 'user-follow-read', 'user-library-read', 'user-library-modify', 'user-read-private', 'user-read-birthdate', 'user-read-email', 'user-top-read', 'user-read-playback-state', 'user-modify-playback-state', 'user-read-currently-playing', 'user-read-recently-played'];
         var requestedPermissions = [];
         listOfPermissions.forEach(function(permission){
@@ -20,8 +22,8 @@ class spotifyWebApi {
         });
 
         function getLoginURL(scopes) {
-            return 'https://accounts.spotify.com/authorize?client_id=' + this.clientId +
-              '&redirect_uri=' + encodeURIComponent(this.redirectUri) +
+            return 'https://accounts.spotify.com/authorize?client_id=' + self.clientId +
+              '&redirect_uri=' + encodeURIComponent(self.redirectUri) +
               '&scope=' + encodeURIComponent(scopes.join(' ')) +
               '&response_type=token';
         }
@@ -60,7 +62,7 @@ class spotifyWebApi {
     }
 
     createPlaylist (playlistName, playlistDescription = "", isPlaylistPublic = true, isPlaylistCollaborative = false, userId = null){
-        if (userId === null && this.userInfo == null){
+        if (userId === null && this.userInfo === null){
             return Promise.reject(new Error('No userId, are you logged in?'));
         } else if (userId === null) {
             userId = this.userInfo.id;
@@ -86,7 +88,7 @@ class spotifyWebApi {
     }
 
     addTracksToPlaylist(playlistId, spotifyTrackUris, addAtPosition = 0, userId = null){
-        if (userId === null && this.userInfo == null){
+        if (userId === null && this.userInfo === null){
             return Promise.reject(new Error('No userId, are you logged in?'));
         } else if (userId === null) {
             userId = this.userInfo.id;
