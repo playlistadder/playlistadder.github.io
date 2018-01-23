@@ -58,13 +58,13 @@ function createNewPlaylistAndAddMusic (playlistName, spotifyTrackUris){
 $(document).ready(function () {
     var authToken = getCookie('authToken');
     if (authToken){
-        spotify = new spotifyWebApi(authToken);
+        spotify = new spotifyWebApi('441a4822a4e64231b66d281c7d20810b', 'https://playlistadder.github.io/callback/', authToken);
         showView('home');
         $('.nav-item').click(showClickedView);
     } else {
-        spotify = new spotifyWebApi();
+        spotify = new spotifyWebApi('441a4822a4e64231b66d281c7d20810b', 'https://playlistadder.github.io/callback/');
         showView('not-logged-in');
-        $('#loginButton').click(spotify.login);
+        $('#loginButton').click(function() { spotify.login([1,2,3,8]); });
     }
     $('.playlist-btn').click(runId);
 });

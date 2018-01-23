@@ -1,34 +1,32 @@
 class spotifyWebApi {
-    constructor (token){
+    constructor (clientId, redirectUri, token = null){
         var self = this;
-        if (token == null) {
-            //handle login
-        } else {
+        this.clientId = clientId;
+        this.redirectUri = redirectUri;
+        if (token != null) {
             this.accessToken = token;
-            this.getLogedInUserInfo().done(function (data) {self.userInfo = data});
         }
     }
 
-    login() {
-        var CLIENT_ID = '441a4822a4e64231b66d281c7d20810b';
-        var REDIRECT_URI = 'https://playlistadder.github.io/callback/';
+    login(listOfPermissions = []) {
+        var permissions = ['playlist-read-private', 'playlist-read-collaborative', 'playlist-modify-public', 'playlist-modify-private', 'streaming', 'ugc-image-upload', 'user-follow-modify', 'user-follow-read', 'user-library-read', 'user-library-modify', 'user-read-private', 'user-read-birthdate', 'user-read-email', 'user-top-read', 'user-read-playback-state', 'user-modify-playback-state', 'user-read-currently-playing', 'user-read-recently-played'];
+        var requestedPermissions = [];
+        listOfPermissions.forEach(function(permission){
+            if (permission >= permissions.length || permission < 0){
+                console.log("login: permission index out of range, permissions must be in within: [0, " + permissions.length + "].")
+            } else {
+                requestedPermissions.push(permissions[permission]);
+            }
+        });
+
         function getLoginURL(scopes) {
-            console.log('https://accounts.spotify.com/authorize?client_id=' + CLIENT_ID +
-            '&redirect_uri=' + encodeURIComponent(REDIRECT_URI) +
-            '&scope=' + encodeURIComponent(scopes.join(' ')) +
-            '&response_type=token');
-            return 'https://accounts.spotify.com/authorize?client_id=' + CLIENT_ID +
-              '&redirect_uri=' + encodeURIComponent(REDIRECT_URI) +
+            return 'https://accounts.spotify.com/authorize?client_id=' + this.clientId +
+              '&redirect_uri=' + encodeURIComponent(this.redirectUri) +
               '&scope=' + encodeURIComponent(scopes.join(' ')) +
               '&response_type=token';
         }
         
-        var url = getLoginURL([
-            'playlist-modify-public',
-            'playlist-modify-private',
-            'playlist-read-collaborative',
-            'user-library-read'
-        ]);
+        var url = getLoginURL(listOfPermissions.length === 0 ? permissions : requestedPermissions);
 
         window.location.href = url;
     }
