@@ -20,10 +20,6 @@ class spotifyWebApi {
         });
 
         function getLoginURL(scopes) {
-            console.log('https://accounts.spotify.com/authorize?client_id=' + this.clientId +
-            '&redirect_uri=' + encodeURIComponent(this.redirectUri) +
-            '&scope=' + encodeURIComponent(scopes.join(' ')) +
-            '&response_type=token');
             return 'https://accounts.spotify.com/authorize?client_id=' + this.clientId +
               '&redirect_uri=' + encodeURIComponent(this.redirectUri) +
               '&scope=' + encodeURIComponent(scopes.join(' ')) +
