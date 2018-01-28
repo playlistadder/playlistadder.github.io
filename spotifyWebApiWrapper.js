@@ -119,4 +119,35 @@ class spotifyWebApi {
         })
         return request;
     }
+
+    search(query, listOfTypes, numberOfSongs = 20, searchResultsOffset = 0, countryCode = null){
+        var types = ['album','artist','playlist','track'];
+        var selectedtypes = [];
+        listOfTypes.forEach(function(typeIndex){
+            if (typeIndex >= types.length || typeIndex < 0){
+                console.log("search: type index out of range, types must be in within: [0, " + types.length + "].")
+            } else {
+                selectedtypes.push(types[typeIndex]);
+            }
+        });
+        var url = 'https://api.spotify.com/v1/search?q=' + buildQuerry(query)
+            + '&type=' + selectedtypes.join('%2C')
+            + '&limit=' + numberOfSongs
+            + '&offset=' + searchResultsOffset
+            + (countryCode ? '&market=' + countryCode : '');
+        var request = $.ajax({
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + this.accessToken
+            },
+            url: url,
+        })
+        return request;
+    }
+
+    //for now this simply encodes the query
+    buildQuerry (query){
+        var ecodedQuery = encodeURIComponent(query);
+        return ecodedQuery;
+    }
 }
