@@ -130,7 +130,7 @@ class spotifyWebApi {
                 selectedtypes.push(types[typeIndex]);
             }
         });
-        var url = 'https://api.spotify.com/v1/search?q=' + buildQuerry(query)
+        var url = 'https://api.spotify.com/v1/search?q=' + this.buildQuerry(query)
             + '&type=' + selectedtypes.join('%2C')
             + '&limit=' + numberOfSongs
             + '&offset=' + searchResultsOffset
