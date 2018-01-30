@@ -55,16 +55,35 @@ function createNewPlaylistAndAddMusic (playlistName, spotifyTrackUris){
     })
 }
 
-$(document).ready(function () {
+function loadJSON(callback) {
+    var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+        xobj.open('GET', 'Configs/config.json', true);
+        xobj.onreadystatechange = function () {
+        if (xobj.readyState == 4 && xobj.status == "200") {
+            callback(xobj.responseText);
+        }
+    };
+    xobj.send(null);  
+}
+
+function setUpSpotifyWrapper(config) {
     var authToken = getCookie('authToken');
     if (authToken){
-        spotify = new spotifyWebApi('441a4822a4e64231b66d281c7d20810b', 'https://playlistadder.github.io/callback/', authToken);
+        spotify = new spotifyWebApi(config.clientId, config.url + 'callback/', authToken);
         showView('home');
         $('.nav-item').click(showClickedView);
     } else {
-        spotify = new spotifyWebApi('441a4822a4e64231b66d281c7d20810b', 'https://playlistadder.github.io/callback/');
+        spotify = new spotifyWebApi(config.clientId, config.url + 'callback/');
         showView('not-logged-in');
         $('#loginButton').click(function() { spotify.login([1,2,3,8]); });
     }
     $('.playlist-btn').click(runId);
+}
+
+$(document).ready(function () {
+    loadJSON(function (response) {
+        var config = JSON.parse(response);
+        setUpSpotifyWrapper(config[0]);
+    });
 });
