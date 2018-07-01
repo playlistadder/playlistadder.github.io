@@ -150,4 +150,64 @@ class spotifyWebApi {
         var ecodedQuery = encodeURIComponent(query);
         return ecodedQuery;
     }
+
+    getPlaybackInfo() {
+        var url = 'https://api.spotify.com/v1/me/player';
+        var request = $.ajax({
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + this.accessToken
+            },
+            url: url,
+        })
+        return request;
+    }
+
+    pausePlayback() {
+        var url = '	https://api.spotify.com/v1/me/player/pause';
+        var request = $.ajax({
+            method: "PUT",
+            headers: {
+                "Authorization": "Bearer " + this.accessToken
+            },
+            url: url,
+        })
+        return request;
+    }
+
+    playPlayback() {
+        var url = '	https://api.spotify.com/v1/me/player/play';
+        var request = $.ajax({
+            method: "PUT",
+            headers: {
+                "Authorization": "Bearer " + this.accessToken
+            },
+            url: url,
+        })
+        return request;
+    }
+
+    nextPlayback () {
+        var url = '	https://api.spotify.com/v1/me/player/next';
+        var request = $.ajax({
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + this.accessToken
+            },
+            url: url,
+        })
+        return request;
+    }
+
+    previousPlayback () {
+        var url = '	https://api.spotify.com/v1/me/player/previous';
+        var request = $.ajax({
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + this.accessToken
+            },
+            url: url,
+        })
+        return request;
+    }
 }
