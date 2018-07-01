@@ -20,3 +20,14 @@ a.bg-secondary:focus,
 a.bg-secondary:hover {
   background-color: #2ea6cc !important;
 }
+.remote-btn {
+  background-color: #6ed8ff;
+}
+.remote-img {
+  width: 64px;
+  height: 64px;
+}
+#mediaController {
+  margin-left: calc(50% - 139px);
+  display: inline-block;
+}

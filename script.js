@@ -55,6 +55,25 @@ function createNewPlaylistAndAddMusic (playlistName, spotifyTrackUris){
     })
 }
 
+function playPausePlayback (){
+    var isMusicPlaying = spotify.getPlaybackInfo();
+    isMusicPlaying.done(function (data) {
+        if (data.is_playing) {
+            spotify.pausePlayback();
+        } else {
+            spotify.playPlayback();
+        }
+    })
+}
+
+function nextPlayback (){
+    spotify.nextPlayback();
+}
+
+function previousPlayback (){
+    spotify.previousPlayback();
+}
+
 function loadJSON(callback) {
     var xobj = new XMLHttpRequest();
         xobj.overrideMimeType("application/json");
@@ -76,9 +95,10 @@ function setUpSpotifyWrapper(config) {
     } else {
         spotify = new spotifyWebApi(config.clientId, config.url + 'callback/');
         showView('not-logged-in');
-        $('#loginButton').click(function() { spotify.login([1,2,3,8]); });
+        $('#loginButton').click(function() { spotify.login([1,2,3,8,14,15]); });
     }
     $('.playlist-btn').click(runId);
+    $('.remote-btn').click(runId);
 }
 
 $(document).ready(function () {
